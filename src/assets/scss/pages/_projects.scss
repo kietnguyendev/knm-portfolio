@@ -1,0 +1,39 @@
+@use "../abstracts";
+
+.projects-container {
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+
+    padding: 170px 0;
+
+    .hash-title {
+        a {
+            &:first-child {
+                @include abstracts.screen(md) {
+                    display: none;
+                }
+            }
+            &:last-child {
+                display: none;
+
+                @include abstracts.screen(md) {
+                    display: inline-block;
+                }
+            }
+        }
+
+        @include abstracts.screen(lg) {
+            margin-bottom: 60px;
+        }
+    }
+
+    @include abstracts.screen(lg) {
+        padding: 100px 0;
+    }
+
+    .col {
+        display: flex;
+        justify-content: center;
+    }
+}

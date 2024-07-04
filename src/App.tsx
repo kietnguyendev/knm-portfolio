@@ -1,35 +1,66 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react';
+
+import "animate.css";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+import Header from "~/components/Header";
+import About from "~/pages/About";
+import Skills from "./pages/Skills";
+import Projects from "~/pages/Projects";
+import Contact from "./pages/Contact";
+
+import "~/assets/scss/main.scss";
 
 function App() {
-  const [count, setCount] = useState(0)
+   const [showGoToTop, setShowGoToTop] = useState(false);
+   const [showBar, setShowBar] = useState(false);
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+   useEffect(() => {
+      AOS.init({
+         useClassNames: true,
+         initClassName: '',
+         animatedClassName: "animate__animated",
+         anchorPlacement: "top-bottom",
+      });
+   }, []);
 
-export default App
+   useEffect(() => {
+      setShowBar(window.scrollY >= window.innerHeight);
+
+      const handleScroll = () => {
+         setShowGoToTop(window.scrollY >= 100);
+         setShowBar(window.scrollY >= window.innerHeight);
+      };
+
+      window.addEventListener("scroll", handleScroll);
+
+      return () => {
+         window.removeEventListener("scroll", handleScroll);
+      };
+   }, []);
+
+   return (
+      <>
+         <Header showBar={showBar} />
+
+         <main>
+            <About />
+            <Skills />
+            <Projects />
+            <Contact />
+         </main>
+
+         {showGoToTop && (
+            <button
+               className="btn-scrolltop"
+               onClick={() => window.scrollTo(0, 0)}
+            >
+               <i className="fa-solid fa-arrow-up"></i>
+            </button>
+         )}
+      </>
+   );
+};
+
+export default App;

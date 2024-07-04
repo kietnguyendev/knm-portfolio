@@ -1,0 +1,182 @@
+@use "../abstracts";
+
+.header {
+    height: 100vh;
+    position: relative;
+
+    .header-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+
+        &.bg-dark {
+            filter: brightness(20%);
+        }
+    }
+    .header-top {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(12px);
+    }
+
+    .header-top-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 80px;
+
+        @include abstracts.screen(md) {
+            justify-content: center;
+        }
+    }
+}
+
+.logo img {
+    width: 63px;
+    height: 63px;
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+.navbar__list {
+    display: flex;
+    gap: 45px;
+
+    @include abstracts.screen(lg) {
+        gap: 35px;
+    }
+}
+
+.navbar__item {
+    a {
+        color: #e1e1e1;
+        font-family: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        position: relative;
+        border: none;
+        background: none;
+        text-transform: uppercase;
+        transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+        transition-duration: 400ms;
+        transition-property: color;
+    }
+
+    a:focus,
+    a:hover {
+        color: #fff;
+    }
+
+    a:focus:after,
+    a:hover:after {
+        width: 100%;
+        left: 0%;
+    }
+
+    a:after {
+        content: "";
+        pointer-events: none;
+        bottom: -2px;
+        left: 50%;
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        background-color: #fff;
+        transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+        transition-duration: 400ms;
+        transition-property: width, left;
+    }
+}
+
+.header-bar {
+    z-index: 7;
+    position: fixed;
+
+    .menu-bar {
+        display: inline-block;
+        cursor: pointer;
+        padding: 10px 14px 14px;
+        background-color: var(--primary-color);
+        border-bottom-right-radius: 36px;
+        font-size: 3rem;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
+            rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    }
+
+    .menu-checkbox {
+        display: none;
+
+        &:checked {
+            & ~ .menu-overlay {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            & ~ .menu-drawer {
+                transform: translateX(0);
+
+                .navbar {
+                    display: block !important;
+                }
+
+                .header-action {
+                    display: block !important;
+                }
+            }
+        }
+    }
+
+    .menu-overlay {
+        z-index: 8;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.5s ease;
+    }
+
+    .menu-drawer {
+        z-index: 9;
+        position: fixed;
+        inset: 0 calc(100vw - 300px) 0 0;
+        background: var(--sidebar-bg);
+        border-radius: 0px 20px 20px 0px;
+        padding: 40px;
+        transform: translateX(-100%);
+        transition: 0.5s ease;
+
+        .navbar__list {
+            flex-direction: column;
+            margin: 50px 0;
+        }
+
+        .navbar__item {
+            a {
+                color: var(--text-color);
+
+                &::after {
+                    background-color: var(--text-color);
+                }
+
+                &:focus,
+                &:hover {
+                    color: var(--text-color);
+                }
+            }
+        }
+
+        @include abstracts.screen(md) {
+            inset: 0 40% 0 0;
+        }
+    }
+
+    @include abstracts.screen(md) {
+        display: block !important;
+    }
+}

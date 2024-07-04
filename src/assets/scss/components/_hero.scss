@@ -1,0 +1,141 @@
+@use "../abstracts";
+
+.hero {
+    height: calc(100vh - 80px);
+    position: absolute;
+    width: 100%;
+}
+
+.hero-content {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: var(--text-color);
+
+    @include abstracts.screen(md) {
+        justify-content: unset;
+        margin-top: 150px;
+    }
+}
+
+.hero-title {
+    text-align: center;
+    text-transform: uppercase;
+    font-family: verdana;
+    font-size: 3.6rem;
+    font-weight: 600;
+    line-height: 63px;
+    text-shadow:
+        0 1px 0 hsl(174, 5%, 80%),
+        0 2px 0 hsl(174, 5%, 75%),
+        0 3px 0 hsl(174, 5%, 70%),
+        0 4px 0 hsl(174, 5%, 66%),
+        0 5px 0 hsl(174, 5%, 64%),
+        0 6px 0 hsl(174, 5%, 62%),
+        0 7px 0 hsl(174, 5%, 61%),
+        0 8px 0 hsl(174, 5%, 60%),
+        0 0 5px rgba(0, 0, 0, 0.05),
+        0 1px 3px rgba(0, 0, 0, 0.2),
+        0 3px 5px rgba(0, 0, 0, 0.2),
+        0 5px 10px rgba(0, 0, 0, 0.2),
+        0 10px 10px rgba(0, 0, 0, 0.2),
+        0 20px 20px rgba(0, 0, 0, 0.3);
+
+    @include abstracts.screen(md) {
+        font-size: 3.2rem;
+    }
+
+    @include abstracts.screen(sm) {
+        font-size: 2.8rem;
+    }
+}
+
+.hero-textrun {
+    min-width: 365px;
+    margin-top: 25px;
+    font-size: 2.6rem;
+    font-weight: 500;
+
+    @include abstracts.screen(md) {
+        min-width: 280px;
+        font-size: 2rem;
+    }
+}
+
+.hero-footer {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    cursor: pointer;
+
+    @include abstracts.screen(md) {
+        bottom: 120px;
+    }
+
+    .mouse-btn {
+        width: 24px;
+        height: 38px;
+        border: 1px solid rgba(122, 122, 124, 0.918);
+        border-radius: 16px;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        display: flex;
+    }
+
+    .mouse-scroll {
+        display: block;
+        width: 3px;
+        height: 10px;
+        background: linear-gradient(170deg, rgba(122, 122, 124, 0.918), rgb(123, 124, 124));
+        border-radius: 4px;
+        margin: auto;
+        animation: scrolling 1.5s linear infinite;
+    }
+
+    @keyframes scrolling {
+        0% {
+            transform: translateY(-8px);
+        }
+
+        50% {
+            transform: translateY(-4px);
+        }
+
+        100% {
+            transform: translateY(-8px);
+        }
+    }
+
+    .chevrons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 6px 0 0 0;
+
+        .chevrondown {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin-top: -5px;
+            border: solid var(--text-color);
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .chevrondown:nth-child(odd) {
+            animation: kfchevrons 500ms ease infinite alternate;
+        }
+        .chevrondown:nth-child(even) {
+            animation: kfchevrons 500ms ease infinite alternate 250ms;
+        }
+        @keyframes kfchevrons {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 0.5;
+            }
+        }
+    }
+}

@@ -1,0 +1,86 @@
+@use "../abstracts";
+
+.skills-container {
+    min-height: 100vh;
+    padding: 70px 0;
+    background-color: var(--body-bg-bold);
+
+    @include abstracts.screen(lg) {
+        padding: 100px 0;
+    }
+
+    @include abstracts.screen(md) {
+        padding-bottom: 30px;
+    }
+}
+
+.skills-title {
+    font-size: 2rem;
+    line-height: 30px;
+
+    @include abstracts.screen(md) {
+        font-size: 1.8rem;
+    }
+}
+
+.skills-group {
+    position: relative;
+    padding-top: 28px;
+
+    &::before,
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: 3px;
+        left: 1px;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: var(--text-color);
+        animation: push_401 2s infinite linear;
+    }
+
+    &::after {
+        animation-delay: 1s;
+    }
+
+    @keyframes push_401 {
+        0%,
+        50% {
+            transform: translate(0%, 0%) scale(1);
+        }
+
+        100% {
+            transform: translate(0%, 100%) scale(0);
+        }
+    }
+
+    span {
+        margin: 20px;
+        font-size: 1.7rem;
+        font-weight: 600;
+    }
+}
+
+.skills-desc {
+    margin-top: 10px;
+
+    @include abstracts.screen(md) {
+        margin-top: 0;
+    }
+
+    ul li {
+        margin-top: 12px;
+        margin-left: 4px;
+        font-size: 1.5rem;
+        font-weight: 300;
+        line-height: 24px;
+    }
+}
+
+.skills-img {
+    div,
+    svg {
+        max-height: 430px;
+    }
+}
